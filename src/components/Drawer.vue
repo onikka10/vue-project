@@ -1,9 +1,24 @@
 <script setup>
-import CartItem from './CartItem.vue';
+
+import DrawerHead from './DrawerHead.vue';
+import CartListitem from './CartListitem.vue';
+
 </script>
 
 <template>
-  <div class="fixed z-10 top-0 h-full w-full bg-black opacity-70" />
+  <div class="fixed z-10 top-0 h-full w-full bg-black opacity-70"></div>
+  <div  class="bg-white w-96 h-full fixed right-0 top-0 z-20 p-8">
+  <DrawerHead />
+
+    
+   <CartListitem/>
+  </div>
+
+
+
+
+
+  <!-- <div class="fixed z-10 top-0 h-full w-full bg-black opacity-70" />
   <div
     class="flex flex-col justify-between fixed h-full z-10 top-0 h-full right-0 w-96 bg-white px-10 py-7"
   >
@@ -65,5 +80,5 @@ import CartItem from './CartItem.vue';
         </button>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
