@@ -16,7 +16,7 @@ defineProps({
     <p>Мужские кросовки</p>
     
     <div class="flex justify-between mt-2">
-      <b>12990 rb</b>
+      <b>12990 руб</b>
       <img class="opacity-40 hover:opacity-100 cursor-pointer transition" src="/close.svg" alt="delete" />  
     </div>
   </div>
