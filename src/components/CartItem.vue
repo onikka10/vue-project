@@ -13,7 +13,7 @@ defineProps({
   <img class="w-16 h-16" src="/sneakers/sneakers-1.jpg" alt="Sneakers" />
 
   <div class="flex flex-col w-full">
-    <p>Krosovka</p>
+    <p>Мужские кросовки</p>
     
     <div class="flex justify-between mt-2">
       <b>12990 rb</b>
