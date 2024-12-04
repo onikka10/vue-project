@@ -1,21 +1,19 @@
 <script setup>
-import MyHello from './components/MyHello.vue';
+import Header from './components/Header.vue';
+import CardList from './components/CardList.vue'; 
+
 </script>
 
 <template>
-<MyHello title="Кроссовки Nike"  :price="15000" is-added>
-    <button>Добавить</button>
-</MyHello>
-<MyHello  is-Added/>
-<MyHello :is-Added="false">
-    <h4>123123</h4>
-</MyHello>
-<MyHello>
-    <MyHello />
-    </MyHello>
+  <div class="bg-white w-4/5 m-auto h-screen rounded-xl shadow-xl mt-14 overflow-auto">
+    <Header />
 
+    
+    
+    <div class="p-10">
+      <h2 class="text-3xl font-bold mb-8">Все кроссовки</h2>
+
+      <CardList />
+    </div>
+</div>
 </template>
-
-<style scoped>
-
-</style>
