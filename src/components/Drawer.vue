@@ -12,6 +12,28 @@ import CartListitem from './CartListitem.vue';
 
     
    <CartListitem/>
+
+  
+    <div class="flex flex-col gap-4 mt-7">
+      <div class="flex gap-2">
+        <span>Итого:</span>
+          <div class="flex-1 border-b border-dashed"></div>
+        <b>12900 руб</b>
+     </div>
+
+       <div class="flex gap-2">
+        <span>Налог 5%:</span>
+          <div class="flex-1 border-b border-dashed"></div>
+        <b>900 руб</b>
+      </div>
+
+      <button disabled="" class=" mt-4 flex justify-center cursor-pointer items-center gap-3 w-full py-3  disabled:bg-slate-300 bg-lime-500 text-white rounded-xl transition active:bg-lime-700 hover:bg-lime-600">
+        Оформить заказ
+      </button>
+
+   </div>
+
+
   </div>
 
 
