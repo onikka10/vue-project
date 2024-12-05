@@ -1,16 +1,16 @@
 <script setup>
-import { ref } from 'vue';
 
-defineProps({
+ defineProps({
+  id:Number,
   title: String,
   imgageUrl: String,
   price: Number,
   isFavorite: Boolean,
   isAdded: Boolean,
-  onClickAdd: Function,
   onClickFavorite: Function,
   
 });
+
 
 </script>
 
@@ -19,7 +19,7 @@ defineProps({
 
   <div>
       <div class="relative  bg-white border-slate-300 rounded-3xl p-8 cursor-pointer transition hover:-translate-y-2 hover:shadow-xl">
-        <img @click="onClickFavorite" :src="!isLiked ? '/like-1.svg' : '/like-2.svg'" alt="Favorite" class="absolute top-8 left-8" />
+        <img  @click="onClickFavorite" :src="!isFavorite ? '/like-1.svg' : '/like-2.svg'" alt="Favorite" class="transition absolute top-8 left-8" />
         <img :src="imgageUrl" alt="Sneakers" />
         <p class="mt-2">{{title}}</p>
 
