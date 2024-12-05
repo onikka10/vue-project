@@ -1,12 +1,94 @@
 <script setup>
 import Header from './components/Header.vue';
+import axios from 'axios';
 import CardList from './components/CardList.vue'; 
 import Drawer from './components/Drawer.vue';
+import { onMounted, provide, reactive, ref, watch} from 'vue';
+
+
+const items = ref([]);
+
+const filters = reactive({
+  sortBy: 'title',
+  searchQuery: ''
+});
+
+
+
+const onChangeSelect= (event) => {
+  filters.sortBy = event.target.value
+}
+
+const onChangeSearchInput = (event) => {
+  filters.searchQuery = event.target.value
+}
+
+
+const fetchFavorites = async () => {
+  try {
+    const { data:favorites } = await axios.get(`https://8c35c1a1a654cf55.mokky.dev/favorites`);
+
+
+items.value = items.value.map(item => {
+  const favorite = favorites.find(favorite => favorite.parentid === item.id);
+
+ if (!favorite) {
+   return item;
+  } 
+
+  return {
+    ...item,
+    isFavorite: true,
+    favoriteId: favorite.id,
+  }
+})
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const addToFavorite = async (item) => {
+  item.isFavorite = !item.isFavorite;
+
+  console.log(item);
+  
+}
+
+
+const fetchItems = async () => {
+  try {
+    const params = {
+      sortBy: filters.sortBy
+
+    }
+
+    if (filters.searchQuery) {
+      params.title = `*${filters.searchQuery}*`;
+        
+      }
+
+
+    const { data } = await axios.get(`https://8c35c1a1a654cf55.mokky.dev/items`, {
+      params
+    });
+    items.value = data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+onMounted(async () => {
+  await fetchItems();
+ await fetchFavorites();
+});
+watch(filters, fetchItems);
+
+provide('addToFavorite', addToFavorite);
 </script>
 
 <template>
   <!-- <Drawer /> -->
-  <div class="bg-white w-4/5 m-auto h-screen rounded-xl shadow-xl mt-14 ">
+  <div class="bg-white w-4/5 m-auto h-auto rounded-xl shadow-xl mt-14 ">
     <Header />
 
     
@@ -17,24 +99,26 @@ import Drawer from './components/Drawer.vue';
 
          <div class="flex gap-4">
 
-          <select class="py-2 px-3 border rounded-md outline-none items-center" name="" id="">
+          <select @change="onChangeSelect" class="py-2 px-3 border rounded-md outline-none items-center" name="" id="">
             <option value="name">По названию</option>
             <option value="price">По цене (дешевые)</option>
-            <option value="price">По цене (дорогие)</option>
+            <option value="-price">По цене (дорогие)</option>
           </select>
 
-            <div class="relative">
+          <div class="relative w-full md:w-auto">
               <img
-              class="absolute left-4 top-3"
+              class="absolute left-4 top-1/2 transform -translate-y-1/2"
               src="/search.svg"/>
 
-              <input class="border rounded-md py-2 pl-11 pr-4 outline-none focus:border-gray-400" type="text" placeholder="Поиск..."/>
+              <input @input="onChangeSearchInput" class="border rounded-md py-2 pl-11 pr-4 w-full md:w-64 outline-none focus:border-gray-400" type="text" placeholder="Поиск..."/>
             </div>
-
           </div>
         </div>
 
-      <CardList />
+        <div class="mt-10">
+          <CardList :items="items" @addToFavorite="addToFavorite"/>
+        </div>
     </div>
+    
 </div>
 </template>
